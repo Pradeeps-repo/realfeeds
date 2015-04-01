@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> Feedstack - A real time feed browser </TITLE>
+  <META NAME="Generator" CONTENT="EditPlus">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+  	<link rel="stylesheet" href="/stylesheets/bootstrap.css">
+  	<link rel="stylesheet" href="/stylesheets/boot.css">
+	  	<link rel="stylesheet" href="/stylesheets/animate.css">
+  	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+  	<script type="application/javascript">
+
+    var socket = io.connect("http://getreal",{'multiplex': false});
+    socket.on('data',function(post){
+    // create the li
+    postDate = new Date(post.post.pubDate);
+    postList = document.getElementById("postList");
+
+	postLis = document.getElementById('dataDiv').getElementsByTagName('li');
+	for (var i = postLis.length-1; i >= 0; i--) {
+
+		postLis[i].className = '';
+	}
+	minutes = (postDate.getMinutes()<10)?('0'+postDate.getMinutes()):postDate.getMinutes();
+    licontent = '<li class="animated fadeInDown"><time datetime="2014-07-20"><span class="day">'+postDate.getDate()+'/'+(postDate.getMonth()+1)+'</span><span class="month">'+postDate.getHours()+':'+minutes+'</span></time><img src="'+post.post.logo+'"/><div class="info"><h2 class="title"><a href="'+post.post.link.replace(':8888','')+'">'+post.post.title+' </a></h2></div></li>'+postList.innerHTML;
+	postList.innerHTML=licontent;
+
+    });
+</script>
+
+
+ </HEAD>
+ <BODY>
+
+      <div class="container">
+		<div class="row">
+			<div id="dataDiv">
+							<h1>Feed stack</h1>
+				<ul class="event-list" id="postList">
+
+					<!-- <li>
+						<time datetime="2014-07-20">
+							<span class="day">09/11</span>
+							<span class="month">18:59</span>
+						</time>
+						<img alt="Independence Day" src="https://farm4.staticflickr.com/3100/2693171833_3545fb852c_q.jpg" />
+						<div class="info">
+							<h2 class="title">Independence Day</h2>
+						</div>
+					</li>
+
+					<li>
+						<time datetime="2014-07-20 0000">
+							<span class="day">8</span>
+							<span class="month">Jul</span>
+							<span class="year">2014</span>
+							<span class="time">12:00 AM</span>
+						</time>
+						<img alt="Independence Day" src="https://farm4.staticflickr.com/3100/2693171833_3545fb852c_q.jpg" />
+						<div class="info">
+							<h2 class="title">One Piece Unlimited World Red</h2>
+						</div>
+					</li> -->
+				</ul>
+			</div>
+		</div>
+	</div>
+ </BODY>
+</HTML>
